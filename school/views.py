@@ -1,4 +1,4 @@
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, filters
 from .models import Student, Course, Registration
 from .serializers import (
     StudentSerializer,
@@ -7,16 +7,23 @@ from .serializers import (
     ListRegistrationsByStudentSerializer,
     ListStudentsByCourseSerializer
 )
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
+    ordering_fields = ['name']
+    search_fields = ['name', 'cpf']
 
 
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
+    ordering_fields = ['code', 'description']
+    search_fields = ['code']
 
 
 class RegistrationViewSet(viewsets.ModelViewSet):
