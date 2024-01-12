@@ -21,7 +21,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         exclude = []
 
 
-class ListRegistrationByStudentSerializer(serializers.ModelSerializer):
+class ListRegistrationsByStudentSerializer(serializers.ModelSerializer):
     course = serializers.ReadOnlyField(source='course.description')
     period = serializers.SerializerMethodField()
 
@@ -31,3 +31,11 @@ class ListRegistrationByStudentSerializer(serializers.ModelSerializer):
 
     def get_period(self, registration):
         return registration.get_period_display()
+
+
+class ListStudentsByCourseSerializer(serializers.ModelSerializer):
+    student_name = serializers.ReadOnlyField(source='student.name')
+
+    class Meta:
+        model = Registration
+        fields = ['student_name']
