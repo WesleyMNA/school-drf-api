@@ -1,4 +1,6 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics, filters
+
 from .models import Student, Course, Registration
 from .serializers import (
     StudentSerializer,
@@ -8,7 +10,6 @@ from .serializers import (
     ListRegistrationsByStudentSerializer,
     ListStudentsByCourseSerializer
 )
-from django_filters.rest_framework import DjangoFilterBackend
 
 
 class StudentViewSet(viewsets.ModelViewSet):

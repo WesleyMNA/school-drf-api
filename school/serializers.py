@@ -4,46 +4,34 @@ from .models import Student, Course, Registration
 from .validators import name_is_invalid, cpf_is_invalid, rg_is_invalid
 
 
-class StudentSerializer(serializers.ModelSerializer):
+class BaseStudentSerializer(serializers.ModelSerializer):
+
+    def validate(self, attrs):
+        errors = {}
+
+        if name_is_invalid(attrs['name']):
+            errors['name'] = 'name must only have letters'
+        if cpf_is_invalid(attrs['cpf']):
+            errors['cpf'] = 'cpf invalid'
+        if rg_is_invalid(attrs['rg']):
+            errors['rg'] = 'rg must have 9 digits'
+
+        if errors:
+            raise serializers.ValidationError(errors)
+
+        return attrs
+
+
+class StudentSerializer(BaseStudentSerializer):
     class Meta:
         model = Student
         fields = ('id', 'name', 'rg', 'cpf', 'birthday')
 
-    def validate(self, attrs):
-        errors = {}
 
-        if name_is_invalid(attrs['name']):
-            errors['name'] = 'name must only have letters'
-        if cpf_is_invalid(attrs['cpf']):
-            errors['cpf'] = 'cpf invalid'
-        if rg_is_invalid(attrs['rg']):
-            errors['rg'] = 'rg must have 9 digits'
-
-        if errors:
-            raise serializers.ValidationError(errors)
-
-        return attrs
-
-
-class StudentSerializerV2(serializers.ModelSerializer):
+class StudentSerializerV2(BaseStudentSerializer):
     class Meta:
         model = Student
         fields = ('id', 'name', 'rg', 'cpf', 'birthday', 'phone_number')
-
-    def validate(self, attrs):
-        errors = {}
-
-        if name_is_invalid(attrs['name']):
-            errors['name'] = 'name must only have letters'
-        if cpf_is_invalid(attrs['cpf']):
-            errors['cpf'] = 'cpf invalid'
-        if rg_is_invalid(attrs['rg']):
-            errors['rg'] = 'rg must have 9 digits'
-
-        if errors:
-            raise serializers.ValidationError(errors)
-
-        return attrs
 
 
 class CourseSerializer(serializers.ModelSerializer):
