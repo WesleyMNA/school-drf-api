@@ -1,5 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, generics, filters
+from rest_framework import viewsets, generics, filters, status
+from rest_framework.response import Response
 
 from .models import Student, Course, Registration
 from .serializers import (
@@ -30,6 +31,18 @@ class CourseViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     ordering_fields = ['code', 'description']
     search_fields = ['code']
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            response = Response(serializer.data, status=status.HTTP_201_CREATED)
+            course_id = str(serializer.data['id'])
+            response['Location'] = request.build_absolute_uri() + course_id
+            return response
+
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class RegistrationViewSet(viewsets.ModelViewSet):
