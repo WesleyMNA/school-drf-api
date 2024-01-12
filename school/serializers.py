@@ -15,7 +15,7 @@ class StudentSerializer(serializers.ModelSerializer):
         if name_is_invalid(attrs['name']):
             errors['name'] = 'name must only have letters'
         if cpf_is_invalid(attrs['cpf']):
-            errors['cpf'] = 'cpf must have 11 digits'
+            errors['cpf'] = 'cpf invalid'
         if rg_is_invalid(attrs['rg']):
             errors['rg'] = 'rg must have 9 digits'
 

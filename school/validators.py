@@ -1,9 +1,13 @@
+from validate_docbr import CPF
+
+
 def name_is_invalid(name):
     return not name.isalpha()
 
 
 def cpf_is_invalid(cpf):
-    return len(cpf) != 11
+    validator = CPF()
+    return not validator.validate(cpf)
 
 
 def rg_is_invalid(rg):
