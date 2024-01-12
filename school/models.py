@@ -8,7 +8,7 @@ class Student(models.Model):
     cpf = models.CharField(max_length=11)
     birthday = models.DateField()
 
-    def __repr__(self):
+    def __str__(self):
         return self.name
 
 
@@ -23,5 +23,19 @@ class Course(models.Model):
     description = models.CharField(max_length=100)
     level = models.CharField(max_length=1, choices=LEVELS, blank=False, null=False, default='B')
 
-    def __repr__(self):
+    def __str__(self):
         return self.description
+
+
+class Registration(models.Model):
+    PERIODS = (
+        ('M', 'Morning'),
+        ('A', 'Afternoon'),
+        ('N', 'Night'),
+    )
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    period = models.CharField(max_length=1, choices=PERIODS, blank=False, null=False, default='M')
+
+    def __str__(self):
+        return f'{self.student.name} - {self.course.code} - {self.period}'
