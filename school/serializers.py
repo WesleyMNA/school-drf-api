@@ -25,13 +25,13 @@ class BaseStudentSerializer(serializers.ModelSerializer):
 class StudentSerializer(BaseStudentSerializer):
     class Meta:
         model = Student
-        fields = ('id', 'name', 'rg', 'cpf', 'birthday')
+        fields = ('id', 'name', 'rg', 'cpf', 'birthday', 'photo')
 
 
 class StudentSerializerV2(BaseStudentSerializer):
     class Meta:
         model = Student
-        fields = ('id', 'name', 'rg', 'cpf', 'birthday', 'phone_number')
+        fields = ('id', 'name', 'rg', 'cpf', 'birthday', 'phone_number', 'photo')
 
 
 class CourseSerializer(serializers.ModelSerializer):

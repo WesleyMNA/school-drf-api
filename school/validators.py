@@ -2,7 +2,7 @@ from validate_docbr import CPF
 
 
 def name_is_invalid(name):
-    return not name.isalpha()
+    return not name.strip()
 
 
 def cpf_is_invalid(cpf):
