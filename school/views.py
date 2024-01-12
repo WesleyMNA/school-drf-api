@@ -35,6 +35,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 class RegistrationViewSet(viewsets.ModelViewSet):
     queryset = Registration.objects.all()
     serializer_class = RegistrationSerializer
+    http_method_names = ['get', 'post', 'put', 'patch']
 
 
 class ListRegistrationsByStudentView(generics.ListAPIView):
