@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.urls import reverse
 from rest_framework import status
@@ -14,7 +15,6 @@ class CourseTest(APITestCase):
         self.course2 = Course.objects.create(code='TC2', description='Test Course 2', level='A')
 
     def tearDown(self):
-        User.objects.all().delete()
         Course.objects.all().delete()
 
     def test_get_all_courses(self):
