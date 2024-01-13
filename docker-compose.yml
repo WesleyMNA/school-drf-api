@@ -24,3 +24,16 @@ services:
     restart: always
     ports:
       - "6379:6379"
+
+  school-api:
+    build:
+      context: .
+    container_name: school-api
+    environment:
+      - POSTGRES_HOST=db
+    restart: always
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+      - redis
