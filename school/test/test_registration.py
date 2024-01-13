@@ -11,22 +11,22 @@ class RegistrationTest(APITestCase):
         self.list_url = reverse('Registrations-list')
         self.course1 = Course.objects.create(code='TC1', description='Test Course 1', level='B')
         self.course2 = Course.objects.create(code='TC2', description='Test Course 2', level='A')
-        self.user1 = Student.objects.create(
+        self.student1 = Student.objects.create(
             name='Student 1',
             rg='123456789',
             cpf='12345678901',
             birthday='2024-01-01',
             phone_number='00911223344'
         )
-        self.user2 = Student.objects.create(
+        self.student2 = Student.objects.create(
             name='Student 2',
             rg='987654321',
             cpf='98765432109',
             birthday='2024-01-01',
             phone_number='99188776655'
         )
-        self.registration1 = Registration.objects.create(student=self.user1, course=self.course1, period='M')
-        self.registration2 = Registration.objects.create(student=self.user2, course=self.course2, period='M')
+        self.registration1 = Registration.objects.create(student=self.student1, course=self.course1, period='M')
+        self.registration2 = Registration.objects.create(student=self.student2, course=self.course2, period='M')
 
     def tearDown(self):
         Student.objects.all().delete()
