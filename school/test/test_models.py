@@ -1,9 +1,10 @@
 from django.db import IntegrityError
 from django.test import TestCase
+
 from ..models import Student
 
 
-class StudentTest(TestCase):
+class StudentModelTest(TestCase):
 
     def setUp(self):
         self.student = Student.objects.create(
