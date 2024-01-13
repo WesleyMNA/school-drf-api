@@ -31,6 +31,7 @@ services:
     container_name: school-api
     environment:
       - POSTGRES_HOST=db
+      - DEBUG=false
     restart: always
     ports:
       - '8000:8000'
